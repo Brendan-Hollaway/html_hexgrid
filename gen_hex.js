@@ -6,11 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const gridContainer = document.getElementById('gridContainer');
   const svg = document.getElementById('hexagonGridSVG');
 
-  // const numCols = bg_colors.length;
-  // const numRows = bg_colors[0].length;
-
-  const numCols = 212;
-  const numRows = 79;
+  const numRows = bg_colors.length;
+  const numCols = bg_colors[0].length;
 
   // Define the dimensions of the hexagon based on the symbol's viewBox
   // These are the dimensions of the hexagon's bounding box
@@ -54,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
       useElement.setAttribute('y', yPos);
       useElement.setAttribute('width', visualHexWidth);   // Explicitly set width
       useElement.setAttribute('height', visualHexHeight); // Explicitly set height
-      useElement.setAttribute('fill', bg_colors[col][row]); // Explicitly set height
+      useElement.setAttribute('fill', bg_colors[row][col]); // Explicitly set height
 
       // Get terrain type and apply class
       useElement.classList.add('hexagon');
