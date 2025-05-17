@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexagon Grid</title>
+  <style>
+    @import "https://unpkg.com/open-props";
+
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background-color: #f0f0f0;
+    }
+
+    svg {
+      border: 1px solid #ccc;
+      background-color: #fff;
+    }
+
+    .hexagon {
+      stroke: #333;
+      stroke-width: 1;
+      transition: fill 0.2s ease-in-out;
+    }
+
+    .hexagon:hover {
+      stroke-width: 2;
+      opacity: 0.8;
+    }
+
+    .water {
+      fill: #3498db;
+    }
+
+    .land {
+      fill: #2ecc71;
+    }
+
+    .mountain {
+      fill: #95a5a6;
+    }
+
+
+    /* option for more interesting bgs
+    .mountain.hexagon {
+      fill: url(#mountainPattern);
+    }
+    */
+  </style>
+</head>
+
+<body>
+  <h1>Hexagon Grid</h1>
+  <svg id="hexagonGridSVG" width="1700" height="1000">
+    <defs>
+      <symbol id="hexagonSymbol" viewBox="0 0 10 8.66">
+        <!-- TODO use actual math to generate rather than these points from an llm -->
+        <polygon points="0,4.33 2.5,8.66 7.5,8.66 10,4.33 7.5,0 2.5,0" />
+      </symbol>
+
+    </defs>
+    <g id="gridContainer"></g>
+  </svg>
+
+  <script type="module" src="gen_hex.js"></script>
+</body>
+
+</html>
