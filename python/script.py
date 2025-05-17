@@ -69,39 +69,44 @@ def get_average_color_in_circular_region(image, center_x, center_y, radius):
     # cv2.mean returns (B, G, R, Alpha/0), we only need BGR
     bgr_tuple = tuple(map(int, average_color_bgr_roi[:3]))
 
-    # Convert BGR tuple to a 1x1x3 NumPy array for cv2.cvtColor
-    bgr_np_pixel = np.uint8([[bgr_tuple]])
+#     # Convert BGR tuple to a 1x1x3 NumPy array for cv2.cvtColor
+#     bgr_np_pixel = np.uint8([[bgr_tuple]])
 
-    # Convert BGR to HSV
-    hsv_np_pixel = cv2.cvtColor(bgr_np_pixel, cv2.COLOR_BGR2HSV)
+#     # Convert BGR to HSV
+#     hsv_np_pixel = cv2.cvtColor(bgr_np_pixel, cv2.COLOR_BGR2HSV)
 
-    h, s, v = hsv_np_pixel[0, 0]
+#     h, s, v = hsv_np_pixel[0, 0]
 
-    # Check if the color is reasonably close to black
-    black_value_threshold = 20
-    if v < black_value_threshold:
-        return (0, 0, 0)  # Output pure black
+#     # Check if the color is reasonably close to black
+#     black_value_threshold = 20
+#     if v < black_value_threshold:
+#         return (0, 0, 0)  # Output pure black
 
-    # Check if the color is reasonably close to white
-    white_value_threshold = 205
-    white_saturation_threshold = 20
-    if v > white_value_threshold and s < white_saturation_threshold:
-        return (255, 255, 255)  # Output pure white
+#     # Check if the color is reasonably close to white
+#     white_value_threshold = 205
+#     white_saturation_threshold = 20
+#     if v > white_value_threshold and s < white_saturation_threshold:
+#         return (255, 255, 255)  # Output pure white
 
-    # Create a mutable copy for modification (or access directly if careful)
-    # hsv_np_pixel is [[[h, s, v]]]
-    # To make it brightly saturated: set S to 255 and V to 255
-    hsv_bright_pixel = hsv_np_pixel.copy()
-    hsv_bright_pixel[0, 0, 1] = 255  # Saturation
-    hsv_bright_pixel[0, 0, 2] = 255  # Value
+    # # Create a mutable copy for modification (or access directly if careful)
+    # # hsv_np_pixel is [[[h, s, v]]]
+    # # To make it brightly saturated: set S to 255 and V to 255
+    # hsv_bright_pixel = hsv_np_pixel.copy()
+    # hsv_bright_pixel[0, 0, 1] = 255  # Saturation
+    # hsv_bright_pixel[0, 0, 2] = 255  # Value
 
-    # Convert the brightly saturated HSV color back to BGR
-    ret_bgr_np_pixel = cv2.cvtColor(hsv_bright_pixel, cv2.COLOR_HSV2BGR)
+    # # Convert the brightly saturated HSV color back to BGR
+    # ret_bgr_np_pixel = cv2.cvtColor(hsv_bright_pixel, cv2.COLOR_HSV2BGR)
 
-    # Extract the BGR tuple from the 1x1x3 NumPy array
-    ret_bgr_tuple = tuple(map(int, ret_bgr_np_pixel[0, 0]))
+    # # Extract the BGR tuple from the 1x1x3 NumPy array
+    # ret_bgr_tuple = tuple(map(int, ret_bgr_np_pixel[0, 0]))
 
-    return ret_bgr_tuple
+    # import pdb;
+    # pdb.set_trace()
+    # return bgr_tuple
+    # print(f"bgr: {bgr_tuple}, ret: {ret_bgr_tuple}")
+    return bgr_tuple
+
 def extract_hex_grid_hues(image_path, start_x, start_y, grid_rows, grid_cols, dot_radius, horizontal_spacing,
                           vertical_spacing, visualize):
     """
@@ -135,11 +140,11 @@ def extract_hex_grid_hues(image_path, start_x, start_y, grid_rows, grid_cols, do
 
     raw_colors = []
 
-    print(f"Image dimensions: Width={image_width}, Height={image_height}")
-    print(f"Grid: {grid_rows} rows, {grid_cols} columns")
-    print(f"Dot radius: {dot_radius}")
-    print(f"Spacing: Horizontal={horizontal_spacing}, Vertical={vertical_spacing}")
-    print(f"Starting point: ({start_x}, {start_y})")
+#     print(f"Image dimensions: Width={image_width}, Height={image_height}")
+#     print(f"Grid: {grid_rows} rows, {grid_cols} columns")
+#     print(f"Dot radius: {dot_radius}")
+#     print(f"Spacing: Horizontal={horizontal_spacing}, Vertical={vertical_spacing}")
+#     print(f"Starting point: ({start_x}, {start_y})")
 
     for r in range(grid_rows):
         raw_colors.append([])
@@ -186,14 +191,14 @@ def extract_hex_grid_hues(image_path, start_x, start_y, grid_rows, grid_cols, do
 
     if visualize and output_image is not None:
         print(f'colors: \n\n{raw_colors}')
-        cv2.namedWindow('custom window', cv2.WINDOW_KEEPRATIO)
-        cv2.imshow('custom window', output_image)
-        cv2.resizeWindow('custom window', 600, 600)
+        # cv2.namedWindow('custom window', cv2.WINDOW_KEEPRATIO)
+        # cv2.imshow('custom window', output_image)
+        # cv2.resizeWindow('custom window', 600, 600)
 
         # cv2.imshow("Hexagonal Grid Average Colors", output_image)
-        print("\nPress any key to close the visualization window.")
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # print("\nPress any key to close the visualization window.")
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
     return average_colors_data
 
@@ -223,7 +228,7 @@ if __name__ == "__main__":
 
 
     extracted_hues = extract_hex_grid_hues(
-        image_path = 'map.jpg',
+        image_path = 'map_backup.jpg',
         start_x = initial_x,
         start_y = initial_y,
         grid_rows = int(rows),
