@@ -153,9 +153,9 @@ def extract_hex_grid_hues(image_path, start_x, start_y, grid_rows, grid_cols, do
             center_x = start_x + c * horizontal_spacing
             center_y = start_y + r * vertical_spacing
 
-            # Offset for hexagonal pattern (odd rows)
-            if r % 2 == 1:
-                center_x += horizontal_spacing / 2.0
+            # Offset for hexagonal pattern
+            if c % 2 == 1:
+                center_y += vertical_spacing / 2.0
 
             # Ensure coordinates are integers for processing
             cx_int, cy_int = int(round(center_x)), int(round(center_y))
@@ -188,17 +188,18 @@ def extract_hex_grid_hues(image_path, start_x, start_y, grid_rows, grid_cols, do
             else:
                 print(
                     f"Could not get average color for dot at ({cx_int}, {cy_int}) with radius {dot_radius}. It might be outside image bounds or too small.")
-
+    print(f"rows: {len(raw_colors)}, cols: {len(raw_colors[0])}")
     if visualize and output_image is not None:
         print(f'colors: \n\n{raw_colors}')
-        # cv2.namedWindow('custom window', cv2.WINDOW_KEEPRATIO)
-        # cv2.imshow('custom window', output_image)
-        # cv2.resizeWindow('custom window', 600, 600)
+        cv2.namedWindow('custom window', cv2.WINDOW_KEEPRATIO)
+        cv2.imshow('custom window', output_image)
+        cv2.resizeWindow('custom window', 600, 600)
 
         # cv2.imshow("Hexagonal Grid Average Colors", output_image)
-        # print("\nPress any key to close the visualization window.")
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+        cv2.resizeWindow('custom window', 600, 600)
+        print("\nPress any key to close the visualization window.")
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
     return average_colors_data
 
@@ -209,11 +210,11 @@ if __name__ == "__main__":
     initial_y = 39.0
 
     horiz_span_A = 3703.0 - 41.0
-    cols_A = (158.0 - 2.0) / 2.0 + 1.0
+    cols_A = 159.0 - 2.0 + 1.0
 
     vert_last = 2842.0 + 12.0
     vert_span = vert_last - initial_y
-    rows = 107.0 * 2.0 - 2
+    rows = 107.0 - 1
 
     cols = cols_A
 

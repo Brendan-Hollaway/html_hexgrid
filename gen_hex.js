@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       useElement.classList.add('hexagon');
 
       // Add an ID for potential individual manipulation or event handling
-      useElement.id = `hex_${col + 2}_${row + 1}`;
+      useElement.id = `hex_${col + 2}_${Math.floor(row/2 + 1)}`;
 
       gridContainer.appendChild(useElement);
 
